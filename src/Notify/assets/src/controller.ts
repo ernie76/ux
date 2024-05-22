@@ -52,10 +52,7 @@ export default class extends Controller {
 
         this.eventSources.forEach((eventSource) => {
             const listener = (event: MessageEvent) =>
-                this._notify(
-                    JSON.parse(event.data).summary,
-                    JSON.parse(event.data).content,
-                );
+                this._notify(JSON.parse(event.data).summary, JSON.parse(event.data).content);
 
             eventSource.addEventListener('message', listener);
             this.listeners.set(eventSource, listener);
@@ -77,10 +74,7 @@ export default class extends Controller {
         this.eventSources = [];
     }
 
-    _notify(
-        title: string | undefined,
-        options: NotificationOptions | undefined,
-    ) {
+    _notify(title: string | undefined, options: NotificationOptions | undefined) {
         if (!title) return;
 
         if ('granted' === Notification.permission) {
